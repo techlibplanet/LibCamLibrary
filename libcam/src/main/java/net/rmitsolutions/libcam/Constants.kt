@@ -3,6 +3,7 @@ package net.rmitsolutions.libcam
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 
 object Constants {
@@ -21,6 +22,7 @@ object Constants {
     val DEFAULT_FILE_PREFIX = DEFAULT_DIRECTORY_NAME
 
     var mCurrentImageName : String = ""
+    var globalBitmapUri : Uri? = null
 
     //Constants for permissions
     val CAMERA = "android.permission.CAMERA"

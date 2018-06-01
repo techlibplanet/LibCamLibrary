@@ -3,8 +3,6 @@ package net.rmitsolutions.libcamlibrary
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Camera
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,14 +15,13 @@ import net.rmitsolutions.libcam.Constants.ACCESS_LOCATION
 import net.rmitsolutions.libcam.Constants.CAMERA
 import net.rmitsolutions.libcam.Constants.CROP_PHOTO
 import net.rmitsolutions.libcam.Constants.DEFAULT_FILE_PREFIX
-import net.rmitsolutions.libcam.Constants.EXTERNAL_STORAGE
 import net.rmitsolutions.libcam.Constants.TAKE_PHOTO
 import net.rmitsolutions.libcam.Constants.logD
 import net.rmitsolutions.libcam.Constants.tag
 import org.jetbrains.anko.toast
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), SavePhotoListener {
+
 
     private val TAG = tag(this)
     private lateinit var libCamera: LibCamera
@@ -83,6 +80,8 @@ class MainActivity : AppCompatActivity(), SavePhotoListener {
                 if (imageUri != null) {
                     val path = libCamera.savePhotoInDeviceMemory(imageUri!!, DEFAULT_FILE_PREFIX, true)
                     toast(path!!)
+                    logD(TAG, "Path - $path")
+                    cameraImageView.setImageURI(imageUri)
                     val savePhotoCallback = SavePhotoCallback()
                     savePhotoCallback.setSavePhotoListener(this)
                     savePhotoCallback.onSavePhoto(path)
@@ -96,9 +95,9 @@ class MainActivity : AppCompatActivity(), SavePhotoListener {
         }
     }
 
-    override fun onPhotoSaved(imageInformation : ImageInformationObject) {
-        if (imageInformation!= null){
-            logD(TAG,"Image name ${imageInformation.imageName}")
+    override fun onPhotoSaved(imageInformation: ImageInformationObject) {
+        if (imageInformation != null) {
+            logD(TAG, "Image name ${imageInformation.imageName}")
             logD(TAG, "Date Stamp ${imageInformation.dateStamp}")
             logD(TAG, "Date time take photo ${imageInformation.dateTimeTakePhoto}")
             logD(TAG, "Image length ${imageInformation.imageLength}")
@@ -117,15 +116,18 @@ class MainActivity : AppCompatActivity(), SavePhotoListener {
         when (requestCode) {
             TAKE_PHOTO -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    val resultImageUri = libCamera.getPickImageResultUri(data!!)
+                    val resultImageUri = libCamera.getPickImageResultUri(data)
                     imageUri = resultImageUri!!
-                    Glide.with(this).load(imageUri).into(cameraImageView)
+                    logD("TAG", "Result Image Uri - ${resultImageUri.path}")
+                    libCamera.cropImage(imageUri!!)
+//                    Glide.with(this).load(imageUri).into(cameraImageView)
                 }
             }
 
             CROP_PHOTO -> {
                 if (data != null) {
                     imageUri = libCamera.cropImageActivityResult(requestCode, resultCode, data)!!
+                    logD(TAG, "Crop Image Uri - ${imageUri!!.path}")
                     Glide.with(this).load(imageUri).into(cameraImageView)
                 }
             }

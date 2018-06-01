@@ -6,14 +6,18 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Environment
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Base64
 import com.theartofdev.edmodo.cropper.CropImage
+import net.rmitsolutions.libcam.Constants.DEFAULT_DIRECTORY_NAME
+import net.rmitsolutions.libcam.Constants.globalBitmapUri
 import net.rmitsolutions.libcam.Constants.logD
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 internal class ActionCamera(private val activity: Activity) {
 
@@ -22,7 +26,6 @@ internal class ActionCamera(private val activity: Activity) {
     companion object {
         private val savePhoto = SavePhoto()
         private val pictureUtils = PictureUtils()
-
     }
 
     fun takePhoto() {
@@ -72,13 +75,15 @@ internal class ActionCamera(private val activity: Activity) {
 
     private val captureImageOutputUri: Uri?
         get() {
-            var outputFileUri: Uri? = null
             val getImage = activity.externalCacheDir
             if (getImage != null) {
-                outputFileUri = Uri.fromFile(File(getImage.path, "pickImageResult.jpeg"))
+                val df = SimpleDateFormat("yyyyMMddHHmmss")
+                val date = df.format(Calendar.getInstance().time)
+                globalBitmapUri = Uri.fromFile(File(getImage.path, "pickImageResult$date.jpeg"))
             }
-            return outputFileUri
+            return globalBitmapUri
         }
+
 
     fun getPickImageResultUri(data: Intent?): Uri? {
         var isCamera = true
@@ -86,7 +91,7 @@ internal class ActionCamera(private val activity: Activity) {
             val action = data.action
             isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
         }
-        return if (isCamera) captureImageOutputUri else data!!.data
+        return if (isCamera) globalBitmapUri else data!!.data
     }
 
     fun cropImage(uri: Uri) {

@@ -16,7 +16,7 @@ class LibCamera(private val activity: Activity) {
     }
 
     // This method called at the time of onActivityResult called for getting image from gallery or camera
-    fun getPickImageResultUri(data : Intent): Uri? {
+    fun getPickImageResultUri(data : Intent?): Uri? {
         return actionCamera.getPickImageResultUri(data)
     }
 

@@ -35,12 +35,20 @@ internal class ImageInformation {
             val exif = getAllFeatures(realPath)
             if (exif != null) {
 
-                val latLong = FloatArray(2)
-                try {
-                    exif.getLatLong(latLong)
-                    imageInformationObject.latitude = latLong[0]
-                    imageInformationObject.longitude =latLong[1]
-                } catch (ex: Exception) {
+//                val latLong = FloatArray(2)
+//                try {
+//                    exif.getLatLong(latLong)
+//                    imageInformationObject.latitude = latLong[0]
+//                    imageInformationObject.longitude =latLong[1]
+//                } catch (ex: Exception) {
+//                }
+
+                if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE))){
+                   imageInformationObject.latitude =  exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE).toFloat()
+                }
+
+                if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE))){
+                    imageInformationObject.longitude = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE).toFloat()
                 }
 
                 if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF))) {
