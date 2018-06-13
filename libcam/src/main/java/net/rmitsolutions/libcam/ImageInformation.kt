@@ -43,11 +43,11 @@ internal class ImageInformation {
 //                }
 
                 if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE))){
-                   imageInformationObject.latitude =  exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE).toFloat()
+                   imageInformationObject.latitude =  exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE)
                 }
 
                 if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE))){
-                    imageInformationObject.longitude = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE).toFloat()
+                    imageInformationObject.longitude = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE)
                 }
 
                 if (notNullNotFill(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF))) {

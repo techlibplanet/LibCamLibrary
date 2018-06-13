@@ -3,9 +3,9 @@ package net.rmitsolutions.libcam
 class ImageInformationObject {
     //Properties of face recognition
     var imageName : String = ""
-    var latitude: Float = 0.toFloat()
+    var latitude: String = ""
     var latitudeReference: String = ""
-    var longitude: Float = 0.toFloat()
+    var longitude: String = ""
     var longitudeReference: String = ""
     var dateTimeTakePhoto: String = ""
     var imageLength: String = ""
