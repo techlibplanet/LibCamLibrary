@@ -6,7 +6,6 @@ import java.io.IOException
 
 internal class ImageInformation {
 
-
     val imageInformationObject: ImageInformationObject
 
 

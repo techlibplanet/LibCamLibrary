@@ -6,22 +6,20 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Environment
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Base64
 import com.theartofdev.edmodo.cropper.CropImage
-import net.rmitsolutions.libcam.Constants.DEFAULT_DIRECTORY_NAME
 import net.rmitsolutions.libcam.Constants.globalBitmapUri
 import net.rmitsolutions.libcam.Constants.logD
+import net.rmitsolutions.libcam.Constants.tag
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 
 internal class ActionCamera(private val activity: Activity) {
 
-    private val TAG = Constants.tag(activity)
+    private val TAG = tag(activity)
 
     companion object {
         private val savePhoto = SavePhoto()
@@ -77,9 +75,9 @@ internal class ActionCamera(private val activity: Activity) {
         get() {
             val getImage = activity.externalCacheDir
             if (getImage != null) {
-                val df = SimpleDateFormat("yyyyMMddHHmmss")
-                val date = df.format(Calendar.getInstance().time)
-                globalBitmapUri = Uri.fromFile(File(getImage.path, "pickImageResult$date.jpeg"))
+//                val df = SimpleDateFormat("yyyyMMddHHmmss")
+//                val date = df.format(Calendar.getInstance().time)
+                globalBitmapUri = Uri.fromFile(File(getImage.path, "pickImageResult.jpeg"))
             }
             return globalBitmapUri
         }
@@ -102,8 +100,7 @@ internal class ActionCamera(private val activity: Activity) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
-                val uri = result.uri
-                return uri
+                return result.uri
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
                 logD(TAG, "Error : $error")
@@ -168,11 +165,13 @@ internal class ActionCamera(private val activity: Activity) {
         }
     }
 
+    // Get base 64 string from Uri
     fun getBase64StringFromUri(uri: Uri, compressQuality: Int): String? {
         val bitmap = getBitmapFromUri(uri)
         return getBase64StringFromBitmap(bitmap!!, compressQuality)
     }
 
+    // Get Uri from base 64
     fun getUriFromBase64String(base64String: String): Uri? {
         val bitmap = getBitmapFromBase64String(base64String)
         return getUriFromBitmap(bitmap!!)
@@ -214,12 +213,14 @@ internal class ActionCamera(private val activity: Activity) {
         return savePhoto.writePhotoFile(bitmap, imagePrefix, directoryName, format, autoConcatenateNameByDate, activity)
     }
 
+    // Rotate Image
     fun rotatePicture(bitmap: Bitmap, rotate: Int) {
         if (bitmap != null) {
             pictureUtils.rotateImage(bitmap, rotate.toFloat())
         }
     }
 
+    // Used to create scaled bitmap
     fun createScaledBitmap(bitmap: Bitmap, width: Int, height: Int, filter: Boolean): Bitmap? {
         return pictureUtils.createScaledBitmap(bitmap, width, height, filter)
     }

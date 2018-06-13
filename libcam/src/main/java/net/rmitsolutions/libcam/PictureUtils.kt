@@ -32,7 +32,7 @@ internal class PictureUtils {
      * @param realImage    the bitmap of image
      * @param maxImageSize the max image size percentage
      * @param filter       the filter
-     * @return a bitmap of the photo rezise
+     * @return a bitmap of the photo resize
      */
     fun resizePhoto(realImage: Bitmap, maxImageSize: Float,
                     filter: Boolean): Bitmap {

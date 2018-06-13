@@ -73,7 +73,7 @@ class LibCamera(private val activity: Activity) {
         return actionCamera.getBitmapFromBase64String(base64String)
     }
 
-    // This method is used to geet base 64 string from Uri,
+    // This method is used to get base 64 string from Uri,
     // compressQuality : Quality of Image (0-100)
     fun getBase64StringFromUri(uri: Uri, compressQuality: Int): String? {
         return actionCamera.getBase64StringFromUri(uri, compressQuality)
@@ -127,7 +127,7 @@ class LibCamera(private val activity: Activity) {
         return actionCamera.createScaledBitmap(bitmap, width, height, filter)
     }
 
-    // Thhis method is used to get the current Image name
+    // This method is used to get the current Image name
     fun getCurrentBitmapName(): String? {
         return if (mCurrentImageName!=null) mCurrentImageName else null
     }
