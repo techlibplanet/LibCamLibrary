@@ -7,6 +7,7 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -20,17 +21,20 @@ import java.util.*
 class LibCameraActivity : AppCompatActivity() {
 
 
-
-
     private val TAG = tag(this)
     private lateinit var libCamera: LibCamera
 
     private lateinit var libPermissions: LibPermissions
     private var imageUri: Uri? = null
+    private var toolbar : Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lib_camera)
+
+        toolbar = findViewById(R.id.toolbar_actionbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val permissions = arrayOf<String>(Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -40,6 +44,7 @@ class LibCameraActivity : AppCompatActivity() {
 
         libPermissions = LibPermissions(this, permissions)
 
+
         val runnable = Runnable {
             Constants.logD(TAG, "All permission enabled")
         }
@@ -47,6 +52,13 @@ class LibCameraActivity : AppCompatActivity() {
 
         libCamera = LibCamera(this)
 
+    }
+
+    private fun getActionBarToolBar(): Toolbar? {
+        if (toolbar == null){
+
+        }
+        return toolbar
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,7 +112,7 @@ class LibCameraActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Toast.makeText(this, "Please capture or select an Image !", Toast.LENGTH_SHORT).show()
-                    
+
                 }
                 return true
             }
