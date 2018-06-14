@@ -84,6 +84,15 @@ class LibCamera(private val activity: Activity) {
         return actionCamera.getUriFromBase64String(base64String)
     }
 
+    // This method is used to get byte array from base 64 string
+    fun getByteArrayFromBase64String(base64String: String): ByteArray? {
+        return actionCamera.getByteArrayFromBase64String(base64String)
+    }
+
+    // This method is used to get base 64 string from byte array
+    fun getBase64StringFromByteArray(byteArray: ByteArray): String? {
+        return actionCamera.getBase64StringFromByteArray(byteArray)
+    }
 
     fun savePhotoInDeviceMemory(bitmap: Bitmap, imagePrefix : String, autoConcatenateNameByDate : Boolean): String? {
         return actionCamera.savePhotoInDeviceMemory(bitmap,imagePrefix,autoConcatenateNameByDate)

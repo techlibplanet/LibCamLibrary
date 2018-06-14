@@ -151,12 +151,22 @@ internal class ActionCamera(private val activity: Activity) {
         val byteArrayStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayStream)
         val byteArray = byteArrayStream.toByteArray()
+        return getBase64StringFromByteArray(byteArray)
+    }
+
+    // This method is used to get byte array from base 64 string
+    fun getByteArrayFromBase64String(base64String: String): ByteArray {
+        return Base64.decode(base64String, Base64.DEFAULT)
+    }
+
+    // This method is used to get base 64 string from byte array
+    fun getBase64StringFromByteArray(byteArray: ByteArray): String? {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    //Get bitmap from base 64 string
+    // Get bitmap from base 64 string
     fun getBitmapFromBase64String(base64String: String): Bitmap? {
-        val bitmapArray = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmapArray = getByteArrayFromBase64String(base64String)
         val bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.size)
         return if (bitmap != null) {
             bitmap
