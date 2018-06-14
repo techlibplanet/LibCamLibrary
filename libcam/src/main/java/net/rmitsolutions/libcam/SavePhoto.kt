@@ -85,7 +85,7 @@ internal class SavePhoto {
                         activity.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, u))
 
                     } catch (ex: Exception) {
-                        logE(TAG,"Exception : $ex")
+                        logE(TAG, "Exception : $ex")
                     }
 
                     return f.absolutePath

@@ -1,6 +1,6 @@
 package net.rmitsolutions.libcam
 
-class ImageInformationObject {
+internal class ImageInformationObject {
     //Properties of face recognition
     var imageName : String = ""
     var latitude: String = ""

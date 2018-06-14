@@ -22,7 +22,7 @@ internal class PictureUtils {
     }
 
     // This method is used to create scaled bitmap
-    fun createScaledBitmap(bitmap: Bitmap, width : Int, height : Int, filter : Boolean): Bitmap? {
+    fun createScaledBitmap(bitmap: Bitmap, width: Int, height: Int, filter: Boolean): Bitmap? {
         return Bitmap.createScaledBitmap(bitmap, width, height, filter)
     }
 
@@ -48,16 +48,16 @@ internal class PictureUtils {
     }
 
     // Decode bitmap using string path with required width and required height
-    fun decodeBitmapFromPath(currentPath : String, reqWidth: Int, reqHeight: Int): Bitmap? {
+    fun decodeBitmapFromPath(currentPath: String, reqWidth: Int, reqHeight: Int): Bitmap? {
         val bitmapFile = File(currentPath)
-        return if (bitmapFile.exists()){
+        return if (bitmapFile.exists()) {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
             BitmapFactory.decodeFile(bitmapFile.absolutePath, options)
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight)
             options.inJustDecodeBounds = false
             BitmapFactory.decodeFile(bitmapFile.absolutePath, options)
-        }else{
+        } else {
             null
         }
     }
