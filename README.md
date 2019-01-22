@@ -40,10 +40,10 @@ Step 2. Add the dependency
   Step 2. Add the dependency
     
 ```kotlin
-    	<dependency>
-	    <groupId>com.github.techlibplanet</groupId>
-	    <artifactId>LibCamLibrary</artifactId>
-	    <version>1.0.0</version>
-	</dependency>	
+    <dependency>
+	<groupId>com.github.techlibplanet</groupId>
+	<artifactId>LibCamLibrary</artifactId>
+	<version>1.0.0</version>
+    </dependency>	
 ```
     
