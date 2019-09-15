@@ -3,20 +3,17 @@ package net.rmitsolutions.libcam
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.media.ExifInterface
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_lib_camera.*
 import net.rmitsolutions.libcam.Constants.CROP_PHOTO
 import net.rmitsolutions.libcam.Constants.TAKE_PHOTO
 import net.rmitsolutions.libcam.Constants.tag
-import java.text.SimpleDateFormat
-import java.util.*
 
 class LibCameraActivity : AppCompatActivity() {
 
@@ -26,7 +23,7 @@ class LibCameraActivity : AppCompatActivity() {
 
     private lateinit var libPermissions: LibPermissions
     private var imageUri: Uri? = null
-    private var toolbar : Toolbar? = null
+    private var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +52,7 @@ class LibCameraActivity : AppCompatActivity() {
     }
 
     private fun getActionBarToolBar(): Toolbar? {
-        if (toolbar == null){
+        if (toolbar == null) {
 
         }
         return toolbar
